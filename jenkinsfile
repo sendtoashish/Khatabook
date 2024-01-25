@@ -11,6 +11,12 @@ pipeline {
              sh "mvn clean install"
           }
         }
+        stage('SonarQube Analysis') {
+          steps {
+             withSonarQubeEnv('khatabook-sonar') {
+                sh 'mvn sonar:sonar'
+            }
+          }
         stage('Docker Image Build'){
          steps{
            sh "docker build . -t  possiadian/khatabook:${DOCKER_TAG}"
