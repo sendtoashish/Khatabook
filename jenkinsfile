@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Docker Image Build'){
          steps{
-           sh "docker build . -t  khatabook/khatabookapplication:${DOCKER_TAG}"
+           sh "docker build . -t  possiadian/khatabook/khatabookapplication:${DOCKER_TAG}"
          }
        }
        stage('Container image Push'){
