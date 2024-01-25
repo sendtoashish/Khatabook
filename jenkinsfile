@@ -30,6 +30,7 @@ pipeline {
         }
         stage('Docker Image Build'){
          steps{
+           input ok: "Build", message: "Ready to Build?"
            sh "docker build . -t  possiadian/khatabook:${DOCKER_TAG}"
          }
        }
