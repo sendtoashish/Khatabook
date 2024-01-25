@@ -13,6 +13,16 @@ pipeline {
           }
         }
     }
+        stage('Quality Gate Check'){
+          steps{
+            script{
+              def qualityGate = waitForQualityGate()
+              if(qualityGate.status != 'OK' ){
+                "Quality Gate failed: ${qualityGate.status}"
+              }
+            }
+          }
+       }
         stage('Mvn Build'){
           steps{
              sh "mvn clean install -Dskiptests"
