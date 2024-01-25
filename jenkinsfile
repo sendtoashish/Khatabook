@@ -6,16 +6,16 @@ pipeline {
     }
 
     stages {
-        stage('Mvn Build'){
-          steps{
-             sh "mvn clean install"
-          }
-        }
         stage('SonarQube Analysis') {
           steps {
              withSonarQubeEnv('khatabook-sonar') {
-                sh 'mvn sonar:sonar'
-            }
+               sh 'mvn sonar:sonar -Dsonar.organization=khatabook-application'
+          }
+        }
+    }
+        stage('Mvn Build'){
+          steps{
+             sh "mvn clean install -Dskiptests"
           }
         }
         stage('Docker Image Build'){
