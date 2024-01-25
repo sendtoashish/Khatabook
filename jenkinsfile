@@ -20,7 +20,7 @@ pipeline {
         steps{
            withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerP')]) {
                sh "docker login -u possiadian -p ${dockerP}"
-               sh "docker push khatabook/khatabookapplication:${DOCKER_TAG}"
+               sh "docker push possiadian/khatabook/khatabookapplication:${DOCKER_TAG}"
            }
         }
        }
