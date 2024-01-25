@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    environment{
+         PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
+         DOCKER_TAG = getDockerTag()
+    }
+
+    stages {
+        stage('Mvn Build'){
+          steps{
+             sh "mvn clean install"
+          }
+        }
+        stage('Docker Image Build'){
+         steps{
+           sh "docker build -t . khatabook/khatabookapplication:${DOCKER_TAG}"
+         }
+        }
+}
+
+def getDockerTag(){
+     tag = sh script: 'git rev-parse HEAD', returnStdout: true
+     return tag
+}
