@@ -13,14 +13,14 @@ pipeline {
         }
         stage('Docker Image Build'){
          steps{
-           sh "docker build . -t  possiadian/khatabook/khatabookapplication:${DOCKER_TAG}"
+           sh "docker build . -t  possiadian/khatabook:${DOCKER_TAG}"
          }
        }
        stage('Container image Push'){
         steps{
            withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerP')]) {
                sh "docker login -u possiadian -p ${dockerP}"
-               sh "docker push possiadian/khatabook/khatabookapplication:${DOCKER_TAG}"
+               sh "docker push possiadian/khatabook:${DOCKER_TAG}"
            }
         }
        }
